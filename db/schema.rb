@@ -11,19 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200109184733) do
+ActiveRecord::Schema.define(version: 20200315025235) do
 
   create_table "subscriptions", force: :cascade do |t|
     t.string  "name"
-    t.string  "type"
-    t.integer "amount"
-    t.integer "frequency"
+    t.string  "sub_type"
+    t.float   "amount"
+    t.string  "frequency"
     t.integer "user_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "username"
-    t.string "password"
+    t.string "password_digest"
   end
 
 end

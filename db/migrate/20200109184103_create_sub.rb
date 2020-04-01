@@ -3,14 +3,11 @@ class CreateSub < ActiveRecord::Migration
     create_table :subscriptions do |t|
       t.string :name
       t.string :type
-      t.integer :amount
-      t.integer :frequency
+      t.float :amount
+      t.string :frequency
       t.integer :user_id
     end
   end
 
-  def change 
-    alter_table :subscriptions do |t|
-      t.string :frequency
-  end 
+ 
 end
