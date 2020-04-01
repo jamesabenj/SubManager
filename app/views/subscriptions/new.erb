@@ -1,11 +1,12 @@
-<h1> Enter A Subscription </h1>
+<h1>Hi, <%= @user.username %>!</h2>
+<h2> Enter A Subscription </h2>
 
-<form action="/subscriptions" method="post">
+<form action="/mysubs" method="post">
     <label>Name</label>
     <input type="text" name="name">
 
     <label>Type</label>
-    <select>
+    <select id="type" name="sub_type">
         <option value="Entertainment">Entertainment</option>
         <option value="Lifestyle">Lifestyle</option>
         <option value="Food/Drink">Food/Drink</option>
@@ -14,8 +15,9 @@
    
     <label>Amount</label>
     <input type="text" name="amount">
+
     <label>Frequency</label>
-    <select>
+    <select id="frequency" name="frequency">
         <option value="Monthly">Monthly</option>
         <option value="Quarterly">Quarterly</option>
         <option value="Annually">Annually</option>
