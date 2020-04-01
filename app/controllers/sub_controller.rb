@@ -1,40 +1,47 @@
 class SubscriptionsController < ApplicationController
 
-
-# CREATE
-get '/subscriptions/new' do 
-    erb :'subscriptions/new' 
-end 
-
-post '/subscriptions' do 
-    subscription = Subscription.new(params)
-    if subscription.save
-        redirect '/subscriptions'
-
-    else 
-        erb :'/subscriptions/new'
+    # CREATE
+    get '/mysubs/new' do 
+        @user = User.find(session[:id])
+        erb :'/subscriptions/new' 
     end 
-end 
-# READ 
 
-get '/subscriptions' do 
-    @subscriptions = Subscription.all 
-    erb :'subscriptions/index'
-end 
+    post '/mysubs' do 
+        current_user.subscriptions << Subscription.create(params)
+        redirect '/mysubs'
+    end 
+    # READ 
+    get '/mysubs' do
+        @user = current_user
+            erb :'subscriptions/mysubs'
+    end
+    # UPDATE
+    get '/mysubs/:id/edit' do
+        @sub = Subscription.find_by(id: params[:id])
+        erb :'subscriptions/edit'
+    end 
 
-get '/subscriptions/:id' do 
-    @subscription = Subscription.find(params["id"])
-    erb :'subscriptions/show'
+    patch '/mysubs/:id' do
+        sub = Subscription.find_by(id: params[:id])
+        if sub
+            sub.update(params[:subscription])
+            redirect '/mysubs'
+        else
+            redirect '/mysubs'
+        end
+    end 
 
-end 
-
-# UPDATE
-
-
-# DESTROY
-
-
-
-
+    # DESTROY
+    get '/mysubs/:id/delete' do
+        @user = current_user
+        sub = Subscription.find_by(id: params[:id])
+        if sub 
+            @confirm = "#{sub.name} has been successfully deleted."
+            sub.delete
+            erb :'/subscriptions/mysubs'
+        else
+            redirect '/mysubs'
+        end
+    end 
 
 end 
