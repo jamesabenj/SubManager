@@ -1,0 +1,10 @@
+<h1>Dashboard</h1>
+<% if @user.subscriptions.empty? %>
+    <p>Welcome to your dashboard, get started by <a href="/mysubs/new">entering your subscriptions</a>.</p>
+<% end %>
+
+<a href="/mysubs">My Subs</a>
+
+
+
+<a href="/logout">Logout</a>

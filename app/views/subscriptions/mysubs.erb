@@ -1,0 +1,22 @@
+<header>
+    <a href="/dashboard">Home</a>
+    <a href="/mysubs/new">Add Subscription</a>
+</header>
+
+<h1><%= @user.username %>'s Subscriptions</h1>
+
+<%= @error %>
+<%= @confirm %>
+
+<% @user.subscriptions.each do |sub| %>
+    <h2><%= sub.name %></h2>
+    <h4>Type</h4>
+    <p><%=  sub.sub_type %></p>
+    <h4> Amount </h4>
+    <p> $ <%= sub.amount %></p>
+    <h4> Frequency </h4>
+    <p><%= sub.frequency %></p>
+    <a href="/mysubs/<%= sub.id %>/edit">Edit</a>
+    <a confirm("Are you sure you would like to delete this subscription?") href="/mysubs/<%= sub.id %>/delete">Delete</a> 
+    </form>
+<% end %> 
