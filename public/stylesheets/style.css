@@ -1,0 +1,31 @@
+.main {
+    background-color: lightgray;
+}
+
+.grid {
+    display: grid;
+    grid-column-gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  
+  .item:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+  
+
+  .item {
+    padding: 2px 16px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: lightslategray;
+  }
+
+
+  div.error {
+    color: red;
+  }
+
+  #sub_display h2 {text-decoration: underline;}
+  #sub_display h4 {padding: 0;}
+
