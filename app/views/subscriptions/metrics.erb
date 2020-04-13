@@ -1,0 +1,28 @@
+<head> 
+    <title>SubManager</title>
+    <link rel="shortcut icon" href="budget.png">
+    <script src="https://kit.fontawesome.com/4b61b8d847.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<header>
+    <a href="/dashboard">Home</a>
+    <a href="/mysubs/new">Add Subscription</a>
+    <span><a href="/mysubs">My Subs</a></span>
+</header>
+
+<% @subs.each do |sub| %>
+    <% if sub.frequency == "Monthly" %>
+        <% @total += sub.amount %>
+    <% elsif sub.frequency == "Quarterly" %>
+        <% @total += (sub.amount / 3) %>
+    <% elsif sub.frequency == "Annually" %>
+        <% @total += (sub.amount / 12) %>
+    <% end %>
+<% end %>
+<h1>Your Monthly Subscription Total:</h1>
+<h2>$<%= @total.round(2) %></h2>
+
+<body class="main">
+    <img src="<%= @monthly_pie %>">
+</body>
+
