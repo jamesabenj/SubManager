@@ -1,10 +1,30 @@
+<head> 
+    <title>SubManager</title>
+    <link rel="shortcut icon" href="budget.png">
+    <script src="https://kit.fontawesome.com/4b61b8d847.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body class="main">
 <h1>Dashboard</h1>
 <% if @user.subscriptions.empty? %>
     <p>Welcome to your dashboard, get started by <a href="/mysubs/new">entering your subscriptions</a>.</p>
 <% end %>
 
-<a href="/mysubs">My Subs</a>
-
-
+<div class="grid">
+    <div onclick="location.href='/mysubs'"  style="cursor: pointer;" class="item">
+    <i class="fas fa-folder-open fa-7x"></i>
+        <h4><b>My Subscriptions</b></h4>
+    </div>
+    <div onclick="location.href='/mysubs/metrics'"  style="cursor: pointer;" class="item">
+        <i class="fas fa-chart-area fa-7x"></i>
+        <h4><b>Metrics</b></h4>
+    </div>
+    <div onclick="location.href='/mysubs/new'"  style="cursor: pointer;" class="item">
+    <i class="fas fa-plus fa-7x fa-fw"></i>
+    <h4><b>Add Subscription</b></h4>
+</div>
+</div>
 
 <a href="/logout">Logout</a>
+</body>

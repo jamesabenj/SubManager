@@ -1,7 +1,16 @@
-<h1>Welcome to Sub Manager!</h1>
-<%= @error %>
-<h4>Track your spending and see how those subscriptions add up.</h4>
-<br>
-<a href="/login">Log In</a> or <a href="/signup">Sign Up</a>
-
+<head> 
+    <title>SubManager</title>
+    <link rel="shortcut icon" href="budget.png">
+    <script src="https://kit.fontawesome.com/4b61b8d847.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body class="main">
+    <h1>Welcome to Sub Manager!</h1>
+    <div class="error">
+        <%= @error %>
+    </div>
+    <h4>Track your spending and see how those subscriptions add up.</h4>
+    <br>
+    <a href="/login">Log In</a> or <a href="/signup">Sign Up</a>
+</body>
 

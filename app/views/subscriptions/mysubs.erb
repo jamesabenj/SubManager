@@ -1,22 +1,33 @@
+<head> 
+    <title>SubManager</title>
+    <link rel="shortcut icon" href="budget.png">
+    <script src="https://kit.fontawesome.com/4b61b8d847.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
 <header>
     <a href="/dashboard">Home</a>
     <a href="/mysubs/new">Add Subscription</a>
 </header>
+<body class="main">
+    <h1><%= @user.username %>'s Subscriptions</h1>
+    <div class="error">
+        <%= @error %>
+    </div>
+    <%= @confirm %>
 
-<h1><%= @user.username %>'s Subscriptions</h1>
-
-<%= @error %>
-<%= @confirm %>
-
-<% @user.subscriptions.each do |sub| %>
-    <h2><%= sub.name %></h2>
-    <h4>Type</h4>
-    <p><%=  sub.sub_type %></p>
-    <h4> Amount </h4>
-    <p> $ <%= sub.amount %></p>
-    <h4> Frequency </h4>
-    <p><%= sub.frequency %></p>
-    <a href="/mysubs/<%= sub.id %>/edit">Edit</a>
-    <a confirm("Are you sure you would like to delete this subscription?") href="/mysubs/<%= sub.id %>/delete">Delete</a> 
-    </form>
-<% end %> 
+    <div class="grid">
+        <% @user.subscriptions.each do |sub| %>
+            <i><h2><%= sub.name %></h2>
+            <h4>Type</h4>
+                <%=  sub.sub_type %>
+            <h4> Amount </h4>
+                $ <%= sub.amount %>
+            <h4> Frequency </h4>
+                <%= sub.frequency %>
+        <div>
+            <p><a href="/mysubs/<%= sub.id %>/edit">Edit</a>
+            <span>|<a onclick="return confirm('Are you sure you want to delete this item?');" href="/mysubs/<%= sub.id %>/delete"> Delete</a>
+        </div></i>
+        <% end %> 
+    </div>
+</body>
