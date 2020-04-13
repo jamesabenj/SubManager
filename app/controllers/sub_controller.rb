@@ -2,19 +2,33 @@ class SubscriptionsController < ApplicationController
 
     # CREATE
     get '/mysubs/new' do 
-        @user = User.find(session[:id])
+        @user = current_user
         erb :'/subscriptions/new' 
     end 
 
-    post '/mysubs' do 
-        current_user.subscriptions << Subscription.create(params)
-        redirect '/mysubs'
+    post '/mysubs/new' do 
+        sub = Subscription.create(params)
+        if sub.valid? 
+            current_user.subscriptions << sub
+            redirect '/mysubs'
+        else
+            @user = current_user
+            @error = "Please fill out all fields and enter only numbers for 'Amount'."
+            erb :'/subscriptions/new'
+        end
     end 
     # READ 
     get '/mysubs' do
         @user = current_user
-            erb :'subscriptions/mysubs'
+        erb :'subscriptions/mysubs'
     end
+
+    get '/mysubs/metrics' do 
+        @subs = current_user.subscriptions 
+        @total = 0
+        @monthly_pie  = Graph.monthly_pie(current_user)
+        erb :'subscriptions/metrics'
+    end 
     # UPDATE
     get '/mysubs/:id/edit' do
         @sub = Subscription.find_by(id: params[:id])
