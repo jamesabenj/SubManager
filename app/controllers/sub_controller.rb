@@ -2,7 +2,7 @@ class SubscriptionsController < ApplicationController
 
     # CREATE
     get '/mysubs/new' do 
-        @user = current_user
+        check_login
         erb :'/subscriptions/new' 
     end 
 
@@ -12,50 +12,50 @@ class SubscriptionsController < ApplicationController
             current_user.subscriptions << sub
             redirect '/mysubs'
         else
-            @user = current_user
             @error = "Please fill out all fields and enter only numbers for 'Amount'."
             erb :'/subscriptions/new'
         end
     end 
     # READ 
     get '/mysubs' do
-        @user = current_user
+        check_login
         erb :'subscriptions/mysubs'
     end
 
+    get '/mysubs/:name' do
+        check_login
+        @sub = Subscription.find_by(name: params[:name].gsub('%20', ' '))
+        erb :'/subscriptions/show'
+    end 
+
     get '/mysubs/metrics' do 
+        check_login
         @subs = current_user.subscriptions 
         @total = 0
         @monthly_pie  = Graph.monthly_pie(current_user)
         erb :'subscriptions/metrics'
     end 
     # UPDATE
-    get '/mysubs/:id/edit' do
-        @sub = Subscription.find_by(id: params[:id])
+    get '/mysubs/:name/edit' do
+        check_login
+        @sub = Subscription.find_by(name: params[:name].gsub('%20', ' '))
         erb :'subscriptions/edit'
     end 
 
-    patch '/mysubs/:id' do
-        sub = Subscription.find_by(id: params[:id])
-        if sub
-            sub.update(params[:subscription])
-            redirect '/mysubs'
-        else
-            redirect '/mysubs'
-        end
+    patch '/mysubs/:name' do
+        check_login
+        @sub = Subscription.find_by(name: params[:name].gsub('%20', ' '))
+        @sub.update(params[:subscription])
+        redirect '/mysubs/:name'
     end 
 
     # DESTROY
-    get '/mysubs/:id/delete' do
-        @user = current_user
-        sub = Subscription.find_by(id: params[:id])
-        if sub 
-            @confirm = "#{sub.name} has been successfully deleted."
-            sub.delete
-            erb :'/subscriptions/mysubs'
-        else
-            redirect '/mysubs'
-        end
+    get '/mysubs/:name/delete' do
+        check_login
+        sub = Subscription.find_by(name: params[:name].gsub('%20', ' '))
+        @confirm = "#{sub.name} has been successfully deleted."
+        sub.delete
+        erb :'/subscriptions/mysubs'
     end 
 
 end 
