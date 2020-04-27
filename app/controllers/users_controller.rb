@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     post '/login' do 
         user = User.find_by(username: params[:username])
         if user && user.authenticate(params[:password])
-            session[:id] = user.id
+            session[:user_id] = user.id
             redirect '/dashboard'
         else 
             @error = "Please enter valid credentials."
@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     post '/signup' do
         user = User.create(params)
         if user.valid?
-          session[:id] = user.id
+          session[:user_id] = user.id
           redirect to '/dashboard'
         else
           user.delete
@@ -32,7 +32,7 @@ class UsersController < ApplicationController
       end
 
     get '/dashboard' do
-        @user = User.find(session[:id])
+        check_login
         erb :'/users/dashboard'
     end 
 
