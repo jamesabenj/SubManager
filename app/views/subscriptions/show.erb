@@ -1,0 +1,27 @@
+<head> 
+    <title>SubManager</title>
+    <link rel="shortcut icon" href="budget.png">
+    <script src="https://kit.fontawesome.com/4b61b8d847.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<header>
+    <a href="/dashboard">Home</a>
+    <a href="/mysubs/new">Add Subscription</a>
+    <span><a href="/mysubs">My Subs</a></span>
+</header>
+
+<body class="main">
+<h2><%= @sub.name %></h2>
+<h4>Type</h4>
+    <%=  @sub.sub_type %>
+<h4> Amount </h4>
+    $ <%= @sub.amount %>
+<h4> Frequency </h4>
+    <%= @sub.frequency %>
+
+<div>
+    <p><a href="/mysubs/<%= @sub.name %>/edit">Edit</a>
+    <span>|<a onclick="return confirm('Are you sure you want to delete this item?');" href="/mysubs/<%= @sub.name %>/delete"> Delete</a>
+</div>
+
+</body>
