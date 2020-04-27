@@ -7,7 +7,7 @@
 
 <body class="main">
 <h1>Dashboard</h1>
-<% if @user.subscriptions.empty? %>
+<% if current_user.subscriptions.empty? %>
     <p>Welcome to your dashboard, get started by <a href="/mysubs/new">entering your subscriptions</a>.</p>
 <% end %>
 
@@ -21,9 +21,9 @@
         <h4><b>Metrics</b></h4>
     </div>
     <div onclick="location.href='/mysubs/new'"  style="cursor: pointer;" class="item">
-    <i class="fas fa-plus fa-7x fa-fw"></i>
-    <h4><b>Add Subscription</b></h4>
-</div>
+        <i class="fas fa-plus fa-7x fa-fw"></i>
+        <h4><b>Add Subscription</b></h4>
+    </div>
 </div>
 
 <a href="/logout">Logout</a>

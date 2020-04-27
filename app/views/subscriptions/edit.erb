@@ -6,16 +6,16 @@
 </head>
 
 <body class="main">
-<a href="/mysubs">Cancel Edit</a>
+<a href="/mysubs/<%= @sub.name %>">Cancel Edit</a>
 
 <h1>Edit Subscription</h1>
 
-<form action="/mysubs/<%= @sub.id%>" method="post">
+<form action="/mysubs/<%= @sub.name%>" method="post">
   <input type="hidden" name="_method" value="patch">
   <label>Name: </label>
   <input type="text" name="subscription[name]" value="<%=@sub.name%>"/><br />
   <label>Type</label>
-  <select id="type" name="subscription[type]">
+  <select id="sub_type" name="subscription[sub_type]">
       <option value="Entertainment">Entertainment</option>
       <option value="Lifestyle">Lifestyle</option>
       <option value="Food/Drink">Food/Drink</option>
