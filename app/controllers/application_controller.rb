@@ -29,11 +29,16 @@ class ApplicationController < Sinatra::Base
     end
     
     def check_login
-      if !logged_in? || !current_user
+      if !logged_in?
         redirect '/'
       end 
     end 
 
+    def verify_user
+      if @sub.user != current_user
+        redirect '/'
+      end
+    end
   end 
 
 end
