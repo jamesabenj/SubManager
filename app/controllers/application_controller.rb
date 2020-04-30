@@ -34,8 +34,8 @@ class ApplicationController < Sinatra::Base
       end 
     end 
 
-    def verify_user
-      if @sub.user != current_user
+    def verify_user(sub)
+      if !sub || sub.user != current_user
         redirect '/'
       end
     end

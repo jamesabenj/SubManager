@@ -39,13 +39,13 @@ class SubscriptionsController < ApplicationController
     get '/mysubs/:id/edit' do
         check_login
         @sub = Subscription.find_by(id: params[:id])
-        verify_user
+        verify_user(@sub)
         erb :'subscriptions/edit'
     end 
 
     patch '/mysubs/:id' do
         @sub = Subscription.find_by(id: params[:id])
-        verify_user
+        verify_user(@sub)
         @sub.update(params[:subscription])
         @sub.save
         redirect "mysubs/#{@sub.id}"
@@ -55,7 +55,7 @@ class SubscriptionsController < ApplicationController
     get '/mysubs/:id/delete' do
         check_login
         @sub = Subscription.find_by(id: params[:id])
-        verify_user
+        verify_user(@sub)
         @confirm = "#{@sub.name} has been successfully deleted."
         @sub.delete
         erb :'/subscriptions/mysubs'
