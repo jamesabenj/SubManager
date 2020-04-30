@@ -7,9 +7,9 @@ class SubscriptionsController < ApplicationController
     end 
 
     post '/mysubs/new' do 
-        sub = Subscription.create(params)
-        if sub.valid? 
-            current_user.subscriptions << sub
+        @sub = Subscription.create(params)
+        if @sub.valid? 
+            current_user.subscriptions << @sub
             redirect '/mysubs'
         else
             @error = "Please fill out all fields and enter only numbers for 'Amount'."
@@ -22,12 +22,6 @@ class SubscriptionsController < ApplicationController
         erb :'subscriptions/mysubs'
     end
 
-    get '/mysubs/:name' do
-        check_login
-        @sub = Subscription.find_by(name: params[:name].gsub('%20', ' '))
-        erb :'/subscriptions/show'
-    end 
-
     get '/mysubs/metrics' do 
         check_login
         @subs = current_user.subscriptions 
@@ -35,26 +29,35 @@ class SubscriptionsController < ApplicationController
         @monthly_pie  = Graph.monthly_pie(current_user)
         erb :'subscriptions/metrics'
     end 
-    # UPDATE
-    get '/mysubs/:name/edit' do
+
+    get '/mysubs/:id' do
         check_login
-        @sub = Subscription.find_by(name: params[:name].gsub('%20', ' '))
+        @sub = Subscription.find_by(id: params[:id])
+        erb :'/subscriptions/show'
+    end 
+    # UPDATE
+    get '/mysubs/:id/edit' do
+        check_login
+        @sub = Subscription.find_by(id: params[:id])
+        verify_user
         erb :'subscriptions/edit'
     end 
 
-    patch '/mysubs/:name' do
-        check_login
-        @sub = Subscription.find_by(name: params[:name].gsub('%20', ' '))
+    patch '/mysubs/:id' do
+        @sub = Subscription.find_by(id: params[:id])
+        verify_user
         @sub.update(params[:subscription])
-        redirect '/mysubs/:name'
+        @sub.save
+        redirect "mysubs/#{@sub.id}"
     end 
 
     # DESTROY
-    get '/mysubs/:name/delete' do
+    get '/mysubs/:id/delete' do
         check_login
-        sub = Subscription.find_by(name: params[:name].gsub('%20', ' '))
-        @confirm = "#{sub.name} has been successfully deleted."
-        sub.delete
+        @sub = Subscription.find_by(id: params[:id])
+        verify_user
+        @confirm = "#{@sub.name} has been successfully deleted."
+        @sub.delete
         erb :'/subscriptions/mysubs'
     end 
 
